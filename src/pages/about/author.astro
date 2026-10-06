@@ -1,0 +1,107 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { author } from "../../config/author";
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: author.name,
+  jobTitle: author.role,
+  description:
+    "Operations and compliance professional with experience at ACX (Australian Crypto Exchange) and Huobi Australia. Part of the team behind one of the first arbitrage crypto trading bots.",
+  url: "/about/author",
+  knowsAbout: [
+    "cryptocurrency exchanges",
+    "crypto compliance",
+    "perpetual futures",
+    "funding rates",
+    "arbitrage trading",
+  ],
+  worksFor: { "@type": "Organization", name: "FeeScope" },
+};
+---
+
+<Layout title={`${author.name} — FeeScope`} description={`${author.name} — operational and compliance professional, founder of FeeScope.`}>
+  <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+
+  <article class="mx-auto max-w-[700px] space-y-8 text-neutral-200">
+    <h1 class="text-3xl font-bold text-neutral-50">{author.name}</h1>
+    <p class="text-neutral-400">{author.role}</p>
+
+    <section class="space-y-4 text-neutral-300">
+      <p>
+        Sanjar Talaibekovic is an operations and compliance professional who has been
+        working in crypto since the 2017 cycle. He was an operational and compliance
+        manager at ACX (Australian Crypto Exchange) through the 2018 crypto winter,
+        then moved into compliance at Huobi Australia as a Compliance Officer.
+      </p>
+      <p>
+        At ACX, he was part of the team behind one of the first arbitrage crypto
+        trading bots — an automated system that bought and sold across exchanges to
+        capture price differences. That experience shaped everything since: he saw
+        first-hand how much of crypto is noise, how hard it is to find the specific
+        information that matters, and what happens when traders don't understand the
+        rules of the market they're trading. People lost money they couldn't afford
+        to lose.
+      </p>
+      <p>FeeScope is his answer to that problem.</p>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-xl font-semibold text-neutral-50">Why FeeScope exists</h2>
+      <p class="text-neutral-300">
+        The first time you look at a funding rate, you think it's free money. It
+        isn't. That's the thing almost no one explains when you're new — funding is a
+        real cost that compounds, and it's different on every exchange. For an
+        experienced trader, it's a line item. For a new one, it's invisible until
+        it's already been paid.
+      </p>
+      <p class="text-neutral-300">
+        FeeScope exists to make that cost visible before it's paid, in plain
+        language, for both kinds of traders.
+      </p>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-xl font-semibold text-neutral-50">What FeeScope is / isn't</h2>
+      <p class="font-medium text-neutral-100">IS:</p>
+      <ul class="list-disc space-y-1 pl-6 text-neutral-300">
+        <li>A data tool that shows current funding rates across venues, side by side, with the actual cost of holding</li>
+        <li>Built on direct exchange APIs, refreshed every 8 hours, with per-venue rates cross-checked against the source</li>
+        <li>Free</li>
+      </ul>
+      <p class="font-medium text-neutral-100">ISN'T:</p>
+      <ul class="list-disc space-y-1 pl-6 text-neutral-300">
+        <li>Financial advice</li>
+        <li>A signal service</li>
+        <li>A recommendation engine</li>
+        <li>A promise of returns</li>
+      </ul>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-xl font-semibold text-neutral-50">On AI use</h2>
+      <p class="text-neutral-300">
+        Some code and copy on this site was developed with AI assistance. Every
+        funding rate is pulled directly from public exchange APIs and cross-checked
+        against the source. The methodology is documented in docs/FUNDING_PIPELINE.md.
+      </p>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-xl font-semibold text-neutral-50">Affiliate disclosure</h2>
+      <p class="text-neutral-300">
+        This site may include affiliate links to exchanges in the future. If you sign
+        up through a link, we may earn a commission at no cost to you. This does not
+        affect which venues are shown or how they're ranked.
+      </p>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-xl font-semibold text-neutral-50">Contact</h2>
+      <p class="text-neutral-300">
+        Corrections, questions, or feedback: <a href={`mailto:${author.contact}`} class="text-neutral-100 underline">{author.contact}</a>
+      </p>
+    </section>
+  </article>
+</Layout>

@@ -1,0 +1,66 @@
+---
+import "../styles/global.css";
+import { logPageview } from "../lib/analytics";
+import { tEn } from "../lib/strings";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const locale = "en";
+
+const DEFAULT_DESCRIPTION =
+  "Compare live crypto perpetual funding rates across Binance, Bybit, OKX, and MEXC. See the real cost of holding, in plain language. Free.";
+const metaDescription = description ?? DEFAULT_DESCRIPTION;
+const canonicalUrl = new URL(
+  Astro.url.pathname,
+  Astro.site ?? new URL("https://content-site-6k6.pages.dev"),
+).toString();
+
+// Measurement spine: server-side pageview on every render.
+logPageview(Astro.locals.runtime?.env, {
+  path: Astro.url.pathname,
+  locale,
+  referrer: Astro.request.headers.get("referer") ?? "",
+});
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={metaDescription} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="FeeScope" />
+    <!-- TODO: add og:image / twitter:image once a social card is designed -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={metaDescription} />
+  </head>
+  <body class="min-h-screen bg-neutral-950 text-neutral-100">
+    <header class="flex items-center gap-8 border-b border-neutral-800 px-8 py-4">
+      <a href="/" class="text-lg font-bold text-neutral-50 no-underline">{tEn("siteName")}</a>
+      <nav class="flex gap-6">
+        <a href="/funding-rates" class="text-neutral-400 no-underline hover:text-neutral-100">{tEn("navFundingRates")}</a>
+        <a href="/fees" class="text-neutral-400 no-underline hover:text-neutral-100">{tEn("navFees")}</a>
+        <a href="/about" class="text-neutral-400 no-underline hover:text-neutral-100">{tEn("navAbout")}</a>
+      </nav>
+    </header>
+    <main class="mx-auto max-w-4xl px-8 py-8">
+      <slot />
+    </main>
+    <footer class="mx-auto max-w-4xl px-8 pb-12">
+      <p class="text-xs text-neutral-500">{tEn("disclosure")}</p>
+    </footer>
+  </body>
+</html>

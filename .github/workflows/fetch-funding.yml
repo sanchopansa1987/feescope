@@ -1,0 +1,36 @@
+name: Fetch funding rates
+
+on:
+  schedule:
+    # Every 8 hours at :05 (offset 5 min past settlement) — see
+    # docs/FUNDING_PIPELINE.md for the rationale.
+    - cron: "5 */8 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch funding rates
+        run: python3 scripts/fetch-funding.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- src/data/funding.json; then
+            echo "funding.json unchanged"
+          else
+            git add src/data/funding.json
+            git commit -m "data: refresh funding rates [skip ci]"
+            git push
+          fi

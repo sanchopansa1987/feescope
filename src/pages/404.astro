@@ -1,0 +1,10 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { tEn } from "../lib/strings";
+---
+
+<Layout title="404 — FeeScope">
+  <h1 class="mb-1 text-3xl font-bold">404</h1>
+  <p class="text-neutral-400">{tEn("notFound")}</p>
+  <p class="mt-2"><a href="/" class="text-neutral-300 underline">{tEn("backHome")}</a></p>
+</Layout>

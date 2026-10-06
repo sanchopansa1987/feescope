@@ -1,0 +1,78 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { fundingRows } from "../data/funding";
+import { author } from "../config/author";
+import { tEn } from "../lib/strings";
+
+const fmtDate = (ms: number) => new Date(ms).toISOString().slice(0, 10);
+
+const datasetSchema = {
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  name: "Cross-exchange funding rate comparison",
+  description: "Perpetual funding rates across tracked symbols and exchanges, with annualized APR, settlement schedule, and 30-day stability.",
+  creator: { "@type": "Person", name: author.name, url: "/about/author" },
+  license: "https://creativecommons.org/licenses/by/4.0/",
+  isAccessibleForFree: true,
+  temporalCoverage: "P30D",
+  variableMeasured: "Perpetual funding rate",
+  keywords: ["funding rate", "perpetual futures", "crypto", "exchange comparison", "funding cost"],
+  distribution: { "@type": "DataDownload", encodingFormat: "application/json", contentUrl: "/data/funding.json" },
+};
+---
+
+<Layout title={tEn("fundingRatesSeoTitle")} description={tEn("fundingRatesDescription")}>
+  <script type="application/ld+json" set:html={JSON.stringify(datasetSchema)} />
+  <h1 class="mb-1 text-3xl font-bold">{tEn("fundingRatesTitle")}</h1>
+  <p class="max-w-xl text-neutral-400">{tEn("fundingRatesLede")}</p>
+  <table class="data-table mt-5 w-full border-collapse" id="funding-table">
+    <thead>
+      <tr class="text-left text-sm text-neutral-400">
+        <th class="border-b border-neutral-800 px-3 py-2">{tEn("fundingRatesColSymbol")}</th>
+        <th class="border-b border-neutral-800 px-3 py-2">{tEn("fundingRatesColCadence")}</th>
+        <th class="sortable border-b border-neutral-800 px-3 py-2">{tEn("fundingRatesColRate")}</th>
+        <th class="sortable border-b border-neutral-800 px-3 py-2">{tEn("fundingRatesColApr")}</th>
+        <th class="sortable border-b border-neutral-800 px-3 py-2">{tEn("fundingRatesCol7d")}</th>
+        <th class="sortable border-b border-neutral-800 px-3 py-2">{tEn("fundingRatesCol30d")}</th>
+        <th class="border-b border-neutral-800 px-3 py-2">{tEn("fundingRatesColUpdated")}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        fundingRows.map((r) => (
+          <tr>
+            <td class="border-b border-neutral-800 px-3 py-2">{r.symbol}</td>
+            <td class="border-b border-neutral-800 px-3 py-2">{r.cadenceHours}h</td>
+            <td class="border-b border-neutral-800 px-3 py-2">{r.latestRatePct.toFixed(4)}%</td>
+            <td class="border-b border-neutral-800 px-3 py-2">{r.annualizedAprPct.toFixed(2)}%</td>
+            <td class="border-b border-neutral-800 px-3 py-2">{r.mean7dPct.toFixed(4)}%</td>
+            <td class="border-b border-neutral-800 px-3 py-2">{r.mean30dPct.toFixed(4)}%</td>
+            <td class="border-b border-neutral-800 px-3 py-2">{fmtDate(r.lastUpdatedMs)}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</Layout>
+
+<script>
+  const table = document.getElementById("funding-table") as HTMLTableElement;
+  const headers = Array.from(table.querySelectorAll("th.sortable")) as HTMLTableCellElement[];
+
+  headers.forEach((th) => {
+    th.addEventListener("click", () => {
+      const col = Array.from(th.parentNode!.children).indexOf(th);
+      const tbody = table.querySelector("tbody")!;
+      const rows = Array.from(tbody.querySelectorAll("tr")) as HTMLTableRowElement[];
+      const dir = th.dataset.dir === "asc" ? -1 : 1;
+
+      rows.sort((a, b) => {
+        const av = parseFloat(a.children[col].textContent ?? "0");
+        const bv = parseFloat(b.children[col].textContent ?? "0");
+        return (av - bv) * dir;
+      });
+      rows.forEach((r) => tbody.appendChild(r));
+      th.dataset.dir = dir === 1 ? "desc" : "asc";
+    });
+  });
+</script>

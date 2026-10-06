@@ -1,0 +1,83 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { exchanges } from "../data/fees";
+import { tEn } from "../lib/strings";
+---
+
+<Layout title={tEn("feesSeoTitle")} description={tEn("feesDescription")}>
+  <h1 class="mb-1 text-3xl font-bold">{tEn("feesTitle")}</h1>
+  <p class="max-w-xl text-neutral-400">{tEn("feesLede")}</p>
+  <form class="mt-6 flex flex-wrap gap-6" id="fee-form">
+    <label class="flex flex-col gap-1 text-sm text-neutral-400">
+      {tEn("feesLabelAccount")}
+      <input type="number" id="account-size" min="0" step="1000" value="100000"
+        class="w-44 rounded-md border border-neutral-800 bg-neutral-950 px-3 py-2 text-neutral-100" />
+    </label>
+    <label class="flex flex-col gap-1 text-sm text-neutral-400">
+      {tEn("feesLabelVolume")}
+      <input type="number" id="monthly-volume" min="0" step="1000" value="500000"
+        class="w-44 rounded-md border border-neutral-800 bg-neutral-950 px-3 py-2 text-neutral-100" />
+    </label>
+    <label class="flex flex-col gap-1 text-sm text-neutral-400">
+      {tEn("feesLabelMaker")}
+      <input type="number" id="maker-ratio" min="0" max="1" step="0.05" value="0.3"
+        class="w-44 rounded-md border border-neutral-800 bg-neutral-950 px-3 py-2 text-neutral-100" />
+    </label>
+  </form>
+  <table class="data-table mt-6 w-full border-collapse">
+    <thead>
+      <tr class="text-left text-sm text-neutral-400">
+        <th class="border-b border-neutral-800 px-3 py-2">{tEn("feesColExchange")}</th>
+        <th class="border-b border-neutral-800 px-3 py-2">{tEn("feesColTaker")}</th>
+        <th class="border-b border-neutral-800 px-3 py-2">{tEn("feesColMaker")}</th>
+        <th class="border-b border-neutral-800 px-3 py-2">{tEn("feesColBlended")}</th>
+        <th class="border-b border-neutral-800 px-3 py-2">{tEn("feesColMonthly")}</th>
+        <th class="border-b border-neutral-800 px-3 py-2">{tEn("feesColAnnual")}</th>
+      </tr>
+    </thead>
+    <tbody id="fee-results"></tbody>
+  </table>
+</Layout>
+
+<script define:vars={{ exchanges }}>
+  interface ExchangeFees {
+    name: string;
+    takerBps: number;
+    makerBps: number;
+  }
+
+  const tbody = document.getElementById("fee-results")!;
+  const form = document.getElementById("fee-form")! as HTMLFormElement;
+
+  function render() {
+    const vol = Number((document.getElementById("monthly-volume") as HTMLInputElement).value) || 0;
+    const maker = Math.max(0, Math.min(1, Number((document.getElementById("maker-ratio") as HTMLInputElement).value) || 0));
+    const taker = 1 - maker;
+
+    const rows = (exchanges as ExchangeFees[])
+      .map((ex) => {
+        const blendedBps = maker * ex.makerBps + taker * ex.takerBps;
+        const monthly = (vol * blendedBps) / 10000;
+        return { ...ex, blendedBps, monthly, annual: monthly * 12 };
+      })
+      .sort((a, b) => a.monthly - b.monthly);
+
+    const usd = (n: number) => "$" + n.toLocaleString("en-US", { maximumFractionDigits: 0 });
+
+    tbody.innerHTML = rows
+      .map(
+        (r) => `<tr>
+          <td class="border-b border-neutral-800 px-3 py-2">${r.name}</td>
+          <td class="border-b border-neutral-800 px-3 py-2">${r.takerBps.toFixed(1)} bps</td>
+          <td class="border-b border-neutral-800 px-3 py-2">${r.makerBps.toFixed(1)} bps</td>
+          <td class="border-b border-neutral-800 px-3 py-2">${r.blendedBps.toFixed(2)} bps</td>
+          <td class="border-b border-neutral-800 px-3 py-2">${usd(r.monthly)}</td>
+          <td class="border-b border-neutral-800 px-3 py-2">${usd(r.annual)}</td>
+        </tr>`,
+      )
+      .join("");
+  }
+
+  render();
+  form.addEventListener("input", render);
+</script>

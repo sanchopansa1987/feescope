@@ -1,0 +1,357 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { analyzeSymbol, venueTakerBps } from "../../lib/funding-analysis";
+import { author } from "../../config/author";
+import { tEn } from "../../lib/strings";
+
+const { symbol } = Astro.params;
+const a = analyzeSymbol(symbol ?? "ETH");
+const headline = a.avgAprPct ?? 0;
+const positive = headline >= 0;
+
+const longSide = positive ? "paying" : "earning";
+const shortSide = positive ? "earning" : "paying";
+const longColor = positive ? "text-red-400" : "text-emerald-400";
+const shortColor = positive ? "text-emerald-400" : "text-red-400";
+const perThousandYear = Math.abs(headline) * 10; // X% APR → $10X/year per $1,000
+
+const stabilityDirection =
+  (a.best?.block?.apr ?? 0) >= 0 ? tEn("fpPositive") : tEn("fpNegative");
+
+// Table sort: by funding APR ascending (cheapest first). Null venues sink.
+const sorted = [...a.venues].sort(
+  (x, y) => (x.block?.apr ?? Infinity) - (y.block?.apr ?? Infinity),
+);
+const validRows = sorted.filter((v) => v.block !== null);
+const cheapestKey = validRows[0]?.key;
+const mostExpensiveKey = validRows[validRows.length - 1]?.key;
+
+const fmtApr = (n: number | null) =>
+  n === null ? "—" : `${n >= 0 ? "+" : ""}${n.toFixed(2)}%`;
+const fmtAbs = (n: number) => `${Math.abs(n).toFixed(2)}%`;
+const fmtUsd = (n: number) => `$${Math.abs(n).toLocaleString("en-US", { maximumFractionDigits: 2 })}`;
+const fmtStability = (score: number | null) =>
+  score === null ? "—" : `${Math.round(score * 100)}%`;
+const fmtTime = (iso: string) => {
+  if (!iso) return "";
+  const d = new Date(iso);
+  return isNaN(d.getTime()) ? iso : d.toISOString().slice(0, 16).replace("T", " ");
+};
+
+// Venue data for the client-side calculator + table projections.
+const calcData = {
+  venues: validRows.map((v) => ({
+    key: v.key,
+    venue: v.venue,
+    apr: v.block!.apr,
+    netAprLong: v.block!.net_apr_long,
+    netAprShort: v.block!.net_apr_short,
+    takerBps: venueTakerBps(v.key),
+  })),
+  bestForLong: a.cheapest ? { key: a.cheapest.key, venue: a.cheapest.venue } : null,
+  bestForShort: a.best ? { key: a.best.key, venue: a.best.venue } : null,
+};
+
+const datasetSchema = {
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  name: `${a.symbol} funding rates across exchanges`,
+  description: `Current perpetual funding rates for ${a.symbol} across Binance, Bybit, OKX, and MEXC, with annualized APR, settlement schedule, and 30-day stability.`,
+  creator: { "@type": "Person", name: author.name, url: "/about/author" },
+  license: "https://creativecommons.org/licenses/by/4.0/",
+  isAccessibleForFree: true,
+  temporalCoverage: "P30D",
+  variableMeasured: "Perpetual funding rate",
+  keywords: ["funding rate", "perpetual futures", a.symbol, "crypto", "exchange comparison", "funding cost"],
+  distribution: { "@type": "DataDownload", encodingFormat: "application/json", contentUrl: "/data/funding.json" },
+};
+---
+
+<Layout title={`${a.symbol} funding rates — FeeScope`} description={`${a.symbol} perpetual funding rates across Binance, Bybit, OKX, and MEXC, with annualized APR and the real cost of holding.`}>
+  <script type="application/ld+json" set:html={JSON.stringify(datasetSchema)} />
+
+  <!-- Section 1 — the answer -->
+  <section class="rounded-xl border border-neutral-800 p-6">
+    <p class="text-sm text-neutral-500">{a.symbol} {tEn("fpFundingNow")} · {fmtTime(a.generatedAt)} UTC</p>
+
+    <div class="mt-4 space-y-5">
+      <div>
+        <p class="text-sm text-neutral-400">{tEn("fpLong")}</p>
+        <p class="text-5xl font-bold leading-tight"><span class={longColor}>{tEn(longSide === "paying" ? "fpPaying" : "fpEarning")} {fmtAbs(headline)} APR</span></p>
+        <p class="mt-1 text-lg text-neutral-500">(~{fmtUsd(perThousandYear)}{tEn("fpPerYear")})</p>
+      </div>
+      <div>
+        <p class="text-sm text-neutral-400">{tEn("fpShort")}</p>
+        <p class="text-5xl font-bold leading-tight"><span class={shortColor}>{tEn(shortSide === "paying" ? "fpPaying" : "fpEarning")} {fmtAbs(headline)} APR</span></p>
+        <p class="mt-1 text-lg text-neutral-500">(~{fmtUsd(perThousandYear)}{tEn("fpPerYear")})</p>
+      </div>
+    </div>
+
+    <div class="mt-5 space-y-1 text-sm">
+      {a.cheapest && (
+        <p>{tEn("fpCheapestLong")}: <span class="text-neutral-100">{a.cheapest.venue}</span> <span class="text-neutral-400">({fmtApr(a.cheapest.block!.apr)} APR)</span></p>
+      )}
+      {a.best && (
+        <p>{tEn("fpBestShort")}: <span class="text-neutral-100">{a.best.venue}</span> <span class="text-neutral-400">({fmtApr(a.best.block!.apr)} APR)</span></p>
+      )}
+    </div>
+
+    <div class="mt-5 flex items-center gap-3">
+      {a.stabilityScore !== null ? (
+        <span class="rounded-full border border-neutral-700 px-3 py-1 text-xs text-neutral-200">
+          {tEn("fpStabilityHeading")}: {tEn(`fp${a.stabilityLabel[0]}${a.stabilityLabel.slice(1).toLowerCase()}`)} · {a.stabilityPositiveDays} {tEn("fpStableOfLast")} {a.stabilityTotalDays} {tEn("fpSettlements")} {stabilityDirection}
+        </span>
+      ) : (
+        <span class="rounded-full border border-amber-500/40 px-3 py-1 text-xs text-amber-400">{tEn("fpStabilityHeading")}: {tEn("fpDataPending")}</span>
+      )}
+    </div>
+
+    <a href="#venue-table" class="mt-6 inline-block rounded-md border border-neutral-700 px-4 py-2 text-sm text-neutral-200 no-underline hover:border-neutral-400" data-track="funding-see-table">
+      {tEn("fpSeeTable")}
+    </a>
+  </section>
+
+  <!-- Section 2 — cost projection calculator -->
+  <details class="mt-4 rounded-xl border border-neutral-800 p-4" data-calc-card>
+    <summary class="cursor-pointer text-sm font-medium text-neutral-200">{tEn("fpCalcTitle")}</summary>
+    <div class="mt-4 grid gap-4 sm:grid-cols-2">
+      <label class="block text-sm text-neutral-400">
+        {tEn("fpCalcSize")} (USD)
+        <input id="calc-size" type="number" value="10000" step="1000" min="100" max="10000000" class="mt-1 w-full rounded-md border border-neutral-700 bg-neutral-900 px-3 py-2 text-neutral-100" />
+      </label>
+      <label class="block text-sm text-neutral-400">
+        {tEn("fpCalcPeriod")}
+        <select id="calc-period" class="mt-1 w-full rounded-md border border-neutral-700 bg-neutral-900 px-3 py-2 text-neutral-100">
+          <option value="1d">1 day</option>
+          <option value="1w">1 week</option>
+          <option value="1m" selected>1 month</option>
+          <option value="3m">3 months</option>
+          <option value="1y">1 year</option>
+        </select>
+      </label>
+      <div class="block text-sm text-neutral-400">
+        {tEn("fpCalcDirection")}
+        <div class="mt-1 flex gap-2">
+          <button id="calc-dir-long" type="button" class="rounded-md border border-red-500/40 px-3 py-2 text-sm text-red-400">Long</button>
+          <button id="calc-dir-short" type="button" class="rounded-md border border-neutral-700 px-3 py-2 text-sm text-neutral-400">Short</button>
+        </div>
+      </div>
+      <label class="flex items-center gap-2 self-end text-sm text-neutral-400">
+        <input id="calc-fees" type="checkbox" class="h-4 w-4" />
+        {tEn("fpCalcFees")}
+      </label>
+    </div>
+    <p id="calc-output" class="mt-4 rounded-lg bg-neutral-900 p-4 text-lg font-medium text-neutral-100"></p>
+  </details>
+
+  <!-- Section 3 — full venue table -->
+  <section id="venue-table" class="mt-10">
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <h2 class="text-xl font-semibold">{tEn("fpTableTitle")}</h2>
+      <label class="flex items-center gap-2 text-sm text-neutral-400">
+        <input id="table-fees" type="checkbox" class="h-4 w-4" />
+        {tEn("fpCalcFees")}
+      </label>
+    </div>
+    <div class="mt-3 overflow-x-auto">
+      <table class="data-table w-full border-collapse text-sm">
+        <thead>
+          <tr class="text-left text-neutral-400">
+            <th class="border-b border-neutral-800 px-3 py-2">{tEn("fpColVenue")}</th>
+            <th class="border-b border-neutral-800 px-3 py-2" title={tEn("fpFundingAprTooltip")}>{tEn("fpColFundingApr")} ⓘ</th>
+            <th class="border-b border-neutral-800 px-3 py-2" title={tEn("fpProjCostTooltip")}>{tEn("fpProjCost")} ⓘ</th>
+            <th class="border-b border-neutral-800 px-3 py-2">{tEn("fpColStability")}</th>
+            <th class="border-b border-neutral-800 px-3 py-2">{tEn("fpColVolume")}</th>
+            <th id="net-apr-th" class="hidden border-b border-neutral-800 px-3 py-2">{tEn("fpColNetApr")}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sorted.map((v) => {
+            const b = v.block;
+            const isCheapest = v.key === cheapestKey;
+            const isMostExpensive = v.key === mostExpensiveKey;
+            const rowClass = b === null
+              ? "opacity-40"
+              : isCheapest ? "border-l-2 border-l-emerald-500"
+              : isMostExpensive ? "border-l-2 border-l-red-500" : "";
+            return (
+              <tr class={rowClass} data-venue={v.key}>
+                <td class="border-b border-neutral-800 px-3 py-2">
+                  <a href="#" class="text-neutral-100 no-underline" data-track={`funding-venue-${v.key}`}>{v.venue}</a>
+                </td>
+                <td class="border-b border-neutral-800 px-3 py-2 text-neutral-100">{b ? fmtApr(b.apr) : "—"}</td>
+                <td class="border-b border-neutral-800 px-3 py-2 text-neutral-100" data-proj-cost={v.key}>—</td>
+                <td class="border-b border-neutral-800 px-3 py-2 text-neutral-300">{b ? fmtStability(b.stability.score) : "—"}</td>
+                <td class="border-b border-neutral-800 px-3 py-2 text-neutral-500">—</td>
+                <td class="hidden border-b border-neutral-800 px-3 py-2" data-net-apr={v.key}></td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-2 text-xs text-neutral-500">{tEn("fpFundingAprTooltip")}</p>
+  </section>
+
+  <!-- Section 4 — historical chart placeholder -->
+  <section class="mt-10">
+    <h2 class="text-xl font-semibold">{tEn("fpChartTitle")}</h2>
+    <div class="mt-3 flex h-40 items-center justify-center rounded-xl border border-dashed border-neutral-800 text-sm text-neutral-500">
+      {tEn("fpChartComing")}
+    </div>
+  </section>
+
+  <!-- Section 5 — education -->
+  <section class="mt-10 grid gap-6 sm:grid-cols-2">
+    <h2 class="text-xl font-semibold sm:col-span-2">{tEn("fpHowItWorks")}</h2>
+    <div>
+      <h3 class="font-medium text-neutral-100">{tEn("fpWhatIsFunding")}</h3>
+      <p class="mt-1 text-sm text-neutral-400">{tEn("fpWhatIsFundingBody")}</p>
+    </div>
+    <div>
+      <h3 class="font-medium text-neutral-100">{tEn("fpHowCostsMoney")}</h3>
+      <p class="mt-1 text-sm text-neutral-400">{tEn("fpHowCostsMoneyBody")}</p>
+    </div>
+    <div>
+      <h3 class="font-medium text-neutral-100">{tEn("fpWhyVenuesDiffer")}</h3>
+      <p class="mt-1 text-sm text-neutral-400">{tEn("fpWhyVenuesDifferBody")}</p>
+    </div>
+    <div>
+      <h3 class="font-medium text-neutral-100">{tEn("fpWhatIsStability")}</h3>
+      <p class="mt-1 text-sm text-neutral-400">{tEn("fpWhatIsStabilityBody")}</p>
+    </div>
+  </section>
+
+  <!-- Section 6 — footer CTA -->
+  <section class="mt-10 rounded-xl border border-neutral-800 p-6 text-center">
+    <p class="font-medium text-neutral-100">{tEn("fpAlertsCta")}</p>
+    <a href="#" class="mt-3 inline-block rounded-md border border-neutral-700 px-4 py-2 text-sm text-neutral-200 no-underline hover:border-neutral-400" data-track="funding-get-alerts">
+      {tEn("fpAlertsPlaceholder")}
+    </a>
+  </section>
+
+</Layout>
+
+<script define:vars={{ calcData }}>
+  const track = (name: string) => {
+    fetch("/api/event", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name }),
+    }).catch(() => {});
+  };
+
+  const data = calcData as {
+    venues: { key: string; venue: string; apr: number; netAprLong: number; netAprShort: number; takerBps: number }[];
+    bestForLong: { key: string; venue: string } | null;
+    bestForShort: { key: string; venue: string } | null;
+  };
+
+  const periodDaysMap: Record<string, number> = { "1d": 1, "1w": 7, "1m": 30, "3m": 90, "1y": 365 };
+  const periodLabels: Record<string, string> = { "1d": "1 day", "1w": "1 week", "1m": "1 month", "3m": "3 months", "1y": "1 year" };
+
+  const state = { size: 10000, period: "1m", direction: "long", includeFees: false };
+
+  const el = {
+    size: document.getElementById("calc-size") as HTMLInputElement,
+    period: document.getElementById("calc-period") as HTMLSelectElement,
+    dirLong: document.getElementById("calc-dir-long") as HTMLButtonElement,
+    dirShort: document.getElementById("calc-dir-short") as HTMLButtonElement,
+    fees: document.getElementById("calc-fees") as HTMLInputElement,
+    tableFees: document.getElementById("table-fees") as HTMLInputElement,
+    output: document.getElementById("calc-output") as HTMLParagraphElement,
+    netAprTh: document.getElementById("net-apr-th") as HTMLElement,
+  };
+
+  const signedApr = (apr: number) => (state.direction === "long" ? apr : -apr);
+  const bestVenueForDirection = () =>
+    state.direction === "long" ? data.bestForLong : data.bestForShort;
+
+  function render() {
+    const days = periodDaysMap[state.period] ?? 30;
+    const best = bestVenueForDirection();
+    const bestApr = best ? data.venues.find((v) => v.key === best.key)?.apr ?? 0 : 0;
+    const fundingCost = computeFundingCost(state.size, signedApr(bestApr), days);
+    const paying = fundingCost > 0;
+
+    let line = `Over ${periodLabels[state.period]}, a ${state.direction} position of $${state.size.toLocaleString()} at ${best?.venue ?? "—"} will ${paying ? "pay" : "earn"} ${fmtUsd(fundingCost)}`;
+    if (state.includeFees) {
+      const bestTaker = best ? data.venues.find((v) => v.key === best.key)?.takerBps ?? 0 : 0;
+      const fee = roundTripFeeUsd(state.size, bestTaker);
+      const total = fundingCost + (paying ? fee : -fee);
+      line += ` (incl. $${fee.toLocaleString()} round-trip fees: ${fmtUsd(total)})`;
+    }
+    el.output.textContent = line;
+    el.output.className = `mt-4 rounded-lg bg-neutral-900 p-4 text-lg font-medium ${paying ? "text-red-400" : "text-emerald-400"}`;
+
+    // Table projections
+    document.querySelectorAll<HTMLElement>("[data-proj-cost]").forEach((cell) => {
+      const key = cell.dataset.projCost!;
+      const v = data.venues.find((x) => x.key === key);
+      cell.textContent = v ? fmtUsd(computeFundingCost(state.size, signedApr(v.apr), days)) : "—";
+    });
+
+    // Net APR column toggle
+    const showNet = state.includeFees;
+    el.netAprTh.classList.toggle("hidden", !showNet);
+    document.querySelectorAll<HTMLElement>("[data-net-apr]").forEach((cell) => {
+      const key = cell.dataset.netApr!;
+      const v = data.venues.find((x) => x.key === key);
+      cell.classList.toggle("hidden", !showNet);
+      if (v) {
+        const net = state.direction === "long" ? v.netAprLong : v.netAprShort;
+        cell.textContent = `${net >= 0 ? "+" : ""}${net.toFixed(2)}%`;
+      }
+    });
+  }
+
+  const fmtUsd = (n: number) => `$${Math.abs(n).toLocaleString("en-US", { maximumFractionDigits: 2 })}`;
+  const computeFundingCost = (size: number, apr: number, days: number) => size * (apr / 100) * (days / 365);
+  const roundTripFeeUsd = (size: number, takerBps: number) => (size * takerBps * 2) / 10000;
+
+  let posTimer: number | undefined;
+  el.size.addEventListener("input", () => {
+    state.size = Math.max(100, Math.min(10000000, Number(el.size.value) || 0));
+    render();
+    window.clearTimeout(posTimer);
+    posTimer = window.setTimeout(() => track("funding-calc-position-change"), 400);
+  });
+  el.period.addEventListener("change", () => {
+    state.period = el.period.value;
+    render();
+    track("funding-calc-period-change");
+  });
+
+  function setDirection(d: "long" | "short") {
+    state.direction = d;
+    const longOn = d === "long";
+    el.dirLong.className = `rounded-md border px-3 py-2 text-sm ${longOn ? "border-red-500/60 text-red-400" : "border-neutral-700 text-neutral-400"}`;
+    el.dirShort.className = `rounded-md border px-3 py-2 text-sm ${!longOn ? "border-emerald-500/60 text-emerald-400" : "border-neutral-700 text-neutral-400"}`;
+    render();
+    track("funding-calc-direction-change");
+  }
+  el.dirLong.addEventListener("click", () => setDirection("long"));
+  el.dirShort.addEventListener("click", () => setDirection("short"));
+
+  function setFees(on: boolean) {
+    state.includeFees = on;
+    el.fees.checked = on;
+    el.tableFees.checked = on;
+    render();
+    track("funding-calc-fee-toggle");
+  }
+  el.fees.addEventListener("change", () => setFees(el.fees.checked));
+  el.tableFees.addEventListener("change", () => setFees(el.tableFees.checked));
+
+  // Analytics: generic click tracking (see-table, venue, alerts) + calc open.
+  document.querySelectorAll<HTMLElement>("[data-track]").forEach((n) =>
+    n.addEventListener("click", () => track(n.dataset.track ?? "unknown")),
+  );
+  const calcCard = document.querySelector<HTMLDetailsElement>("[data-calc-card]");
+  calcCard?.addEventListener("toggle", () => {
+    if (calcCard.open) track("funding-calc-open");
+  });
+
+  setDirection("long");
+  render();
+</script>

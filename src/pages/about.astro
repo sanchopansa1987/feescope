@@ -1,0 +1,14 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { tEn } from "../lib/strings";
+---
+
+<Layout title={tEn("aboutSeoTitle")} description={tEn("aboutDescription")}>
+  <h1 class="mb-1 text-3xl font-bold">{tEn("aboutTitle")}</h1>
+  <p class="max-w-xl text-neutral-400">{tEn("aboutBody")}</p>
+  <p class="mt-4 max-w-xl text-neutral-400">
+    Phase 1 is a static prototype serving historical frozen funding data and a
+    fee calculator. Live exchange data, affiliate links, and written articles
+    arrive in later phases.
+  </p>
+</Layout>

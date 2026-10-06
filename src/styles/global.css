@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+/* Minimal non-Tailwind helpers: sortable headers + table base. */
+.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.sortable:hover {
+  color: #fff;
+}
+
+.data-table td {
+  font-variant-numeric: tabular-nums;
+}

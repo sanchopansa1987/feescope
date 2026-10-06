@@ -1,0 +1,415 @@
+{
+  "generated_at": "2026-10-06T04:19:24Z",
+  "symbols": {
+    "ETH": {
+      "venues": {
+        "binance": {
+          "rate": 1.605e-05,
+          "interval_h": 8.0,
+          "apr": 1.773,
+          "net_apr_short": -27.427,
+          "net_apr_long": -30.973,
+          "settled_at": "2026-10-06T00:00:00Z",
+          "mark_price": 2708.7,
+          "stability": {
+            "positive_days": 29,
+            "total_days": 30,
+            "score": 0.9667
+          }
+        },
+        "bybit": {
+          "rate": 5.185e-05,
+          "interval_h": 8.0,
+          "apr": 5.8417,
+          "net_apr_short": -34.3083,
+          "net_apr_long": -45.9917,
+          "settled_at": "2026-10-06T00:00:00Z",
+          "mark_price": null,
+          "stability": {
+            "positive_days": 26,
+            "total_days": 30,
+            "score": 0.8667
+          }
+        },
+        "okx": {
+          "rate": 6.09690818699e-05,
+          "interval_h": 8.0,
+          "apr": 6.9038,
+          "net_apr_short": -29.5962,
+          "net_apr_long": -43.4038,
+          "settled_at": "2026-10-06T00:00:00Z",
+          "mark_price": null,
+          "stability": {
+            "positive_days": 29,
+            "total_days": 30,
+            "score": 0.9667
+          }
+        },
+        "mexc": {
+          "rate": 1.6e-05,
+          "interval_h": 8.0,
+          "apr": 1.7674,
+          "net_apr_short": -42.0326,
+          "net_apr_long": -45.5674,
+          "settled_at": "2026-10-06T00:00:00Z",
+          "mark_price": null,
+          "stability": {
+            "positive_days": 29,
+            "total_days": 30,
+            "score": 0.9667
+          }
+        }
+      },
+      "stability": {
+        "binance": {
+          "positive_days": 29,
+          "total_days": 30,
+          "score": 0.9667
+        },
+        "bybit": {
+          "positive_days": 26,
+          "total_days": 30,
+          "score": 0.8667
+        },
+        "okx": {
+          "positive_days": 29,
+          "total_days": 30,
+          "score": 0.9667
+        },
+        "mexc": {
+          "positive_days": 29,
+          "total_days": 30,
+          "score": 0.9667
+        }
+      }
+    },
+    "BTC": {
+      "venues": {
+        "binance": {
+          "rate": -2.485e-05,
+          "interval_h": 8.0,
+          "apr": -2.6844,
+          "net_apr_short": -31.8844,
+          "net_apr_long": -26.5156,
+          "settled_at": "2026-10-06T00:00:00Z",
+          "mark_price": 85718.55362319,
+          "stability": {
+            "positive_days": 24,
+            "total_days": 30,
+            "score": 0.2
+          }
+        },
+        "bybit": {
+          "rate": 1.177e-05,
+          "interval_h": 8.0,
+          "apr": 1.2971,
+          "net_apr_short": -38.8529,
+          "net_apr_long": -41.4471,
+          "settled_at": "2026-10-06T00:00:00Z",
+          "mark_price": null,
+          "stability": {
+            "positive_days": 23,
+            "total_days": 30,
+            "score": 0.7667
+          }
+        },
+        "okx": {
+          "rate": -1.5122422803e-06,
+          "interval_h": 8.0,
+          "apr": -0.1655,
+          "net_apr_short": -36.6655,
+          "net_apr_long": -36.3345,
+          "settled_at": "2026-10-06T00:00:00Z",
+          "mark_price": null,
+          "stability": {
+            "positive_days": 23,
+            "total_days": 30,
+            "score": 0.2333
+          }
+        },
+        "mexc": {
+          "rate": -2.4e-05,
+          "interval_h": 8.0,
+          "apr": -2.5938,
+          "net_apr_short": -46.3938,
+          "net_apr_long": -41.2062,
+          "settled_at": "2026-10-06T00:00:00Z",
+          "mark_price": null,
+          "stability": {
+            "positive_days": 25,
+            "total_days": 30,
+            "score": 0.1667
+          }
+        }
+      },
+      "stability": {
+        "binance": {
+          "positive_days": 24,
+          "total_days": 30,
+          "score": 0.2
+        },
+        "bybit": {
+          "positive_days": 23,
+          "total_days": 30,
+          "score": 0.7667
+        },
+        "okx": {
+          "positive_days": 23,
+          "total_days": 30,
+          "score": 0.2333
+        },
+        "mexc": {
+          "positive_days": 25,
+          "total_days": 30,
+          "score": 0.1667
+        }
+      }
+    },
+    "SOL": {
+      "venues": {
+        "binance": {
+          "rate": 1.156e-05,
+          "interval_h": 8.0,
+          "apr": 1.2739,
+          "net_apr_short": -27.9261,
+          "net_apr_long": -30.4739,
+          "settled_at": "2026-10-06T00:00:00Z",
+          "mark_price": 120.72640379,
+          "stability": {
+            "positive_days": 22,
+            "total_days": 30,
+            "score": 0.7333
+          }
+        },
+        "bybit": {
+          "rate": 3.02e-06,
+          "interval_h": 8.0,
+          "apr": 0.3312,
+          "net_apr_short": -39.8188,
+          "net_apr_long": -40.4812,
+          "settled_at": "2026-10-06T00:00:00Z",
+          "mark_price": null,
+          "stability": {
+            "positive_days": 20,
+            "total_days": 30,
+            "score": 0.6667
+          }
+        },
+        "okx": {
+          "rate": 2.0609144072e-05,
+          "interval_h": 8.0,
+          "apr": 2.2823,
+          "net_apr_short": -34.2177,
+          "net_apr_long": -38.7823,
+          "settled_at": "2026-10-06T00:00:00Z",
+          "mark_price": null,
+          "stability": {
+            "positive_days": 19,
+            "total_days": 30,
+            "score": 0.6333
+          }
+        },
+        "mexc": {
+          "rate": 1.1e-05,
+          "interval_h": 8.0,
+          "apr": 1.2118,
+          "net_apr_short": -42.5882,
+          "net_apr_long": -45.0118,
+          "settled_at": "2026-10-06T00:00:00Z",
+          "mark_price": null,
+          "stability": {
+            "positive_days": 22,
+            "total_days": 30,
+            "score": 0.7333
+          }
+        }
+      },
+      "stability": {
+        "binance": {
+          "positive_days": 22,
+          "total_days": 30,
+          "score": 0.7333
+        },
+        "bybit": {
+          "positive_days": 20,
+          "total_days": 30,
+          "score": 0.6667
+        },
+        "okx": {
+          "positive_days": 19,
+          "total_days": 30,
+          "score": 0.6333
+        },
+        "mexc": {
+          "positive_days": 22,
+          "total_days": 30,
+          "score": 0.7333
+        }
+      }
+    },
+    "XRP": {
+      "venues": {
+        "binance": {
+          "rate": 6.319e-05,
+          "interval_h": 8.0,
+          "apr": 7.1641,
+          "net_apr_short": -22.0359,
+          "net_apr_long": -36.3641,
+          "settled_at": "2026-10-06T00:00:00Z",
+          "mark_price": 1.5072,
+          "stability": {
+            "positive_days": 26,
+            "total_days": 30,
+            "score": 0.8667
+          }
+        },
+        "bybit": {
+          "rate": 0.0001,
+          "interval_h": 8.0,
+          "apr": 11.5714,
+          "net_apr_short": -28.5786,
+          "net_apr_long": -51.7214,
+          "settled_at": "2026-10-06T00:00:00Z",
+          "mark_price": null,
+          "stability": {
+            "positive_days": 26,
+            "total_days": 30,
+            "score": 0.8667
+          }
+        },
+        "okx": {
+          "rate": 9.46943402497e-05,
+          "interval_h": 8.0,
+          "apr": 10.9251,
+          "net_apr_short": -25.5749,
+          "net_apr_long": -47.4251,
+          "settled_at": "2026-10-06T00:00:00Z",
+          "mark_price": null,
+          "stability": {
+            "positive_days": 26,
+            "total_days": 30,
+            "score": 0.8667
+          }
+        },
+        "mexc": {
+          "rate": 6.2e-05,
+          "interval_h": 8.0,
+          "apr": 7.0245,
+          "net_apr_short": -36.7755,
+          "net_apr_long": -50.8245,
+          "settled_at": "2026-10-06T00:00:00Z",
+          "mark_price": null,
+          "stability": {
+            "positive_days": 26,
+            "total_days": 30,
+            "score": 0.8667
+          }
+        }
+      },
+      "stability": {
+        "binance": {
+          "positive_days": 26,
+          "total_days": 30,
+          "score": 0.8667
+        },
+        "bybit": {
+          "positive_days": 26,
+          "total_days": 30,
+          "score": 0.8667
+        },
+        "okx": {
+          "positive_days": 26,
+          "total_days": 30,
+          "score": 0.8667
+        },
+        "mexc": {
+          "positive_days": 26,
+          "total_days": 30,
+          "score": 0.8667
+        }
+      }
+    },
+    "DOT": {
+      "venues": {
+        "binance": {
+          "rate": 0.0001,
+          "interval_h": 8.0,
+          "apr": 11.5714,
+          "net_apr_short": -17.6286,
+          "net_apr_long": -40.7714,
+          "settled_at": "2026-10-06T00:00:00Z",
+          "mark_price": 1.2306,
+          "stability": {
+            "positive_days": 26,
+            "total_days": 30,
+            "score": 0.8667
+          }
+        },
+        "bybit": {
+          "rate": 0.0001,
+          "interval_h": 8.0,
+          "apr": 11.5714,
+          "net_apr_short": -28.5786,
+          "net_apr_long": -51.7214,
+          "settled_at": "2026-10-06T00:00:00Z",
+          "mark_price": null,
+          "stability": {
+            "positive_days": 26,
+            "total_days": 30,
+            "score": 0.8667
+          }
+        },
+        "okx": {
+          "rate": 0.0001,
+          "interval_h": 8.0,
+          "apr": 11.5714,
+          "net_apr_short": -24.9286,
+          "net_apr_long": -48.0714,
+          "settled_at": "2026-10-06T00:00:00Z",
+          "mark_price": null,
+          "stability": {
+            "positive_days": 25,
+            "total_days": 30,
+            "score": 0.8333
+          }
+        },
+        "mexc": {
+          "rate": 0.0001,
+          "interval_h": 8.0,
+          "apr": 11.5714,
+          "net_apr_short": -32.2286,
+          "net_apr_long": -55.3714,
+          "settled_at": "2026-10-06T00:00:00Z",
+          "mark_price": null,
+          "stability": {
+            "positive_days": 26,
+            "total_days": 30,
+            "score": 0.8667
+          }
+        }
+      },
+      "stability": {
+        "binance": {
+          "positive_days": 26,
+          "total_days": 30,
+          "score": 0.8667
+        },
+        "bybit": {
+          "positive_days": 26,
+          "total_days": 30,
+          "score": 0.8667
+        },
+        "okx": {
+          "positive_days": 25,
+          "total_days": 30,
+          "score": 0.8333
+        },
+        "mexc": {
+          "positive_days": 26,
+          "total_days": 30,
+          "score": 0.8667
+        }
+      }
+    }
+  }
+}

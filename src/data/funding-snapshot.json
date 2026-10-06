@@ -1,0 +1,96 @@
+{
+  "source": "backtest/cache/frozen/2026-10-05-funding",
+  "generatedAtMs": 1791213995727,
+  "rows": [
+    {
+      "symbol": "ADA/USDT",
+      "cadenceHours": 8,
+      "latestRatePct": 0.01,
+      "annualizedAprPct": 10.95,
+      "mean7dPct": 0.0056,
+      "mean30dPct": 0.0054,
+      "lastUpdatedMs": 1790755200000
+    },
+    {
+      "symbol": "BNB/USDT",
+      "cadenceHours": 8,
+      "latestRatePct": 0.01,
+      "annualizedAprPct": 10.95,
+      "mean7dPct": -0.0008,
+      "mean30dPct": 0.0033,
+      "lastUpdatedMs": 1790755200000
+    },
+    {
+      "symbol": "DOT/USDT",
+      "cadenceHours": 8,
+      "latestRatePct": 0.01,
+      "annualizedAprPct": 10.95,
+      "mean7dPct": 0.0073,
+      "mean30dPct": 0.0069,
+      "lastUpdatedMs": 1790755200000
+    },
+    {
+      "symbol": "UNI/USDT",
+      "cadenceHours": 8,
+      "latestRatePct": 0.01,
+      "annualizedAprPct": 10.95,
+      "mean7dPct": 0.0046,
+      "mean30dPct": 0.0047,
+      "lastUpdatedMs": 1790755200000
+    },
+    {
+      "symbol": "XRP/USDT",
+      "cadenceHours": 8,
+      "latestRatePct": 0.0056,
+      "annualizedAprPct": 6.12,
+      "mean7dPct": 0.0044,
+      "mean30dPct": 0.0043,
+      "lastUpdatedMs": 1790755200000
+    },
+    {
+      "symbol": "JUP/USDT",
+      "cadenceHours": 4,
+      "latestRatePct": 0.0023,
+      "annualizedAprPct": 4.97,
+      "mean7dPct": 0.0019,
+      "mean30dPct": 0.0029,
+      "lastUpdatedMs": 1790769600000
+    },
+    {
+      "symbol": "ETH/USDT",
+      "cadenceHours": 8,
+      "latestRatePct": 0.0041,
+      "annualizedAprPct": 4.53,
+      "mean7dPct": 0.0034,
+      "mean30dPct": 0.004,
+      "lastUpdatedMs": 1790755200000
+    },
+    {
+      "symbol": "BTC/USDT",
+      "cadenceHours": 8,
+      "latestRatePct": -0.0004,
+      "annualizedAprPct": -0.43,
+      "mean7dPct": 0.0017,
+      "mean30dPct": 0.0043,
+      "lastUpdatedMs": 1790755200000
+    },
+    {
+      "symbol": "LINK/USDT",
+      "cadenceHours": 8,
+      "latestRatePct": -0.0055,
+      "annualizedAprPct": -6.02,
+      "mean7dPct": 0.0058,
+      "mean30dPct": 0.0051,
+      "lastUpdatedMs": 1790755200000
+    },
+    {
+      "symbol": "SOL/USDT",
+      "cadenceHours": 8,
+      "latestRatePct": -0.0086,
+      "annualizedAprPct": -9.38,
+      "mean7dPct": 0.0042,
+      "mean30dPct": 0.0017,
+      "lastUpdatedMs": 1790755200000
+    }
+  ]
+}

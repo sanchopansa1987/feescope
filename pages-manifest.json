@@ -1,0 +1,9 @@
+{
+  "pages": [
+    {
+      "route": "/funding-rates",
+      "data": ["funding-snapshot"],
+      "regenerate": ".venv-dev/bin/python content-site/scripts/export-funding.py"
+    }
+  ]
+}

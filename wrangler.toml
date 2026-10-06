@@ -1,0 +1,8 @@
+name = "content-site"
+compatibility_date = "2026-01-01"
+pages_build_output_dir = "dist"
+
+# Analytics Engine binding for the measurement spine (Phase 2).
+[[analytics_engine_datasets]]
+binding = "ANALYTICS"
+dataset = "feescope_events"
