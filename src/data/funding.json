@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T09:49:53Z",
+  "generated_at": "2026-10-06T10:11:37Z",
   "symbols": {
     "ETH": {
       "venues": {
@@ -37,7 +37,7 @@
           "apr": 11.5719,
           "net_apr_short": -13.9781,
           "net_apr_long": -37.1219,
-          "settled_at": "2026-09-27T05:00:00Z",
+          "settled_at": "2026-09-27T06:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 30,
@@ -138,7 +138,7 @@
           "apr": 11.5719,
           "net_apr_short": -13.9781,
           "net_apr_long": -37.1219,
-          "settled_at": "2026-09-27T05:00:00Z",
+          "settled_at": "2026-09-27T06:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 30,
@@ -239,7 +239,7 @@
           "apr": 11.5719,
           "net_apr_short": -13.9781,
           "net_apr_long": -37.1219,
-          "settled_at": "2026-09-27T05:00:00Z",
+          "settled_at": "2026-09-27T06:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 30,
@@ -340,7 +340,7 @@
           "apr": 11.5719,
           "net_apr_short": -13.9781,
           "net_apr_long": -37.1219,
-          "settled_at": "2026-09-27T05:00:00Z",
+          "settled_at": "2026-09-27T06:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 30,
@@ -436,12 +436,12 @@
           }
         },
         "hyperliquid": {
-          "rate": 2.2751e-06,
+          "rate": 1.25e-05,
           "interval_h": 1.0,
-          "apr": 2.013,
-          "net_apr_short": -23.537,
-          "net_apr_long": -27.563,
-          "settled_at": "2026-09-27T05:00:00Z",
+          "apr": 11.5719,
+          "net_apr_short": -13.9781,
+          "net_apr_long": -37.1219,
+          "settled_at": "2026-09-27T06:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 30,
