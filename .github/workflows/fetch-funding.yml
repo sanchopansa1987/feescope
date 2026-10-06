@@ -31,6 +31,6 @@ jobs:
             echo "funding.json unchanged"
           else
             git add src/data/funding.json
-            git commit -m "data: refresh funding rates [skip ci]"
+            git commit -m "data: refresh funding rates"
             git push
           fi
