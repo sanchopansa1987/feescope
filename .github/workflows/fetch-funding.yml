@@ -20,14 +20,6 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Proxy self-test
-        run: |
-          echo "Testing proxy -> Bybit"
-          curl -sS -w "\nHTTP %{http_code}\n" "https://feescope-fetch-proxy.sanchopansa1987.workers.dev/api.bybit.com/v5/market/funding/history?category=linear&symbol=ETHUSDT&limit=1" | head -c 500
-          echo
-          echo "Testing proxy -> Binance"
-          curl -sS -w "\nHTTP %{http_code}\n" "https://feescope-fetch-proxy.sanchopansa1987.workers.dev/fapi.binance.com/fapi/v1/fundingRate?symbol=ETHUSDT&limit=1" | head -c 500
-
       - name: Fetch funding rates
         run: python3 scripts/fetch-funding.py
 
