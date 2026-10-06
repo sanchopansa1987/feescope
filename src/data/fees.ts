@@ -10,10 +10,11 @@ export interface ExchangeFees {
 // each exchange's current fee table before Phase 2 goes live. Do not hardcode
 // these anywhere else; components read from here.
 export const exchanges: ExchangeFees[] = [
-  { name: "Binance", takerBps: 4.0, makerBps: 2.0 },
   { name: "OKX", takerBps: 5.0, makerBps: 2.0 },
-  { name: "Bybit", takerBps: 5.5, makerBps: 2.0 },
   { name: "MEXC", takerBps: 6.0, makerBps: 1.0 },
+  { name: "Hyperliquid", takerBps: 3.5, makerBps: 0.0 },
+  { name: "Gate.io", takerBps: 5.0, makerBps: 2.0 },
+  { name: "Bitget", takerBps: 6.0, makerBps: 2.0 },
 ];
 
 /** Blended per-side fee rate (fraction) for a maker:taker split. */

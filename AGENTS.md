@@ -56,4 +56,4 @@ tool that also explains the math."
 ## Phase 2 (not yet)
 
 Cloudflare Pages deploy (`@astrojs/cloudflare` adapter + KV/D1 analytics sink),
-live Bybit funding feed, real affiliate links with disclosure, and articles.
+live funding feed, real affiliate links with disclosure, and articles.

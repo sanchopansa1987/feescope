@@ -56,7 +56,7 @@ const datasetSchema = {
   "@context": "https://schema.org",
   "@type": "Dataset",
   name: `${a.symbol} funding rates across exchanges`,
-  description: `Current perpetual funding rates for ${a.symbol} across Binance, Bybit, OKX, and MEXC, with annualized APR, settlement schedule, and 30-day stability.`,
+  description: `Current perpetual funding rates for ${a.symbol} across OKX, MEXC, Hyperliquid, Gate.io, and Bitget, with annualized APR, settlement schedule, and 30-day stability.`,
   creator: { "@type": "Person", name: author.name, url: "/about/author" },
   license: "https://creativecommons.org/licenses/by/4.0/",
   isAccessibleForFree: true,
@@ -67,7 +67,7 @@ const datasetSchema = {
 };
 ---
 
-<Layout title={`${a.symbol} funding rates — FeeScope`} description={`${a.symbol} perpetual funding rates across Binance, Bybit, OKX, and MEXC, with annualized APR and the real cost of holding.`}>
+<Layout title={`${a.symbol} funding rates — FeeScope`} description={`${a.symbol} perpetual funding rates across OKX, MEXC, Hyperliquid, Gate.io, and Bitget, with annualized APR and the real cost of holding.`}>
   <script type="application/ld+json" set:html={JSON.stringify(datasetSchema)} />
 
   <!-- Section 1 — the answer -->

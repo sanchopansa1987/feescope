@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fetch per-venue funding rates from 4 exchanges and write funding.json.
+"""Fetch per-venue funding rates from 5 exchanges and write funding.json.
 
 Static pipeline: run on schedule (see .github/workflows/fetch-funding.yml),
 commit the JSON, and let Cloudflare Pages rebuild. No runtime API calls.
@@ -10,8 +10,12 @@ Normalization:
   - net_apr_long  = -(apr + taker_bps * 2 * (365 / holding_days) / 100)
   - stability.score = same-sign settlements among last N / N
 
-Per-venue errors are tolerated: a failed venue is written as null and the
-run continues.
+Venues: OKX, MEXC, Hyperliquid, Gate.io, Bitget. Binance and Bybit were removed
+because their public APIs geo-block cloud infrastructure. Bitfinex was considered
+but skipped (FRR vs CURRENT_FUNDING ambiguity).
+
+Per-venue errors are tolerated: a failed venue is written as null and the run
+continues.
 """
 
 import json
@@ -28,18 +32,14 @@ HOLDING_DAYS = 1
 STABILITY_N = 30
 LIMIT = 100
 
-# Cloudflare Worker proxy for exchanges that geo-block datacenter IPs
-# (GitHub Actions runners). Only Bybit is routed through it — Binance also
-# blocks Cloudflare edge IPs, so Binance stays direct.
-PROXY_URL = "https://feescope-fetch-proxy.sanchopansa1987.workers.dev"
-
 # VIP-0 futures taker fee per side, in basis points. Single source of truth is
 # src/data/fees.ts — keep these in sync.
 TAKER_FEE_BPS = {
-    "binance": 4.0,
-    "bybit": 5.5,
     "okx": 5.0,
     "mexc": 6.0,
+    "hyperliquid": 3.5,
+    "gateio": 5.0,
+    "bitget": 6.0,
 }
 
 UA = {"User-Agent": "FeeScope/1.0 (+https://feescope.pages.dev)"}
@@ -47,6 +47,15 @@ UA = {"User-Agent": "FeeScope/1.0 (+https://feescope.pages.dev)"}
 
 def http_get_json(url):
     req = urllib.request.Request(url, headers=UA)
+    with urllib.request.urlopen(req, timeout=20) as r:
+        return json.loads(r.read().decode())
+
+
+def http_post_json(url, body):
+    data = json.dumps(body).encode()
+    req = urllib.request.Request(
+        url, data=data, headers={**UA, "Content-Type": "application/json"}
+    )
     with urllib.request.urlopen(req, timeout=20) as r:
         return json.loads(r.read().decode())
 
@@ -67,14 +76,16 @@ def parse_history(exchange, payload):
     entries = []
     interval_h = None
     try:
-        if exchange == "binance":
-            rows = [r for r in payload if r.get("rateType", "Regular") == "Regular"]
-            for r in rows:
-                entries.append((int(r["fundingTime"]), float(r["fundingRate"]),
-                                float(r["markPrice"]) if r.get("markPrice") else None))
+        if exchange == "hyperliquid":
+            for r in payload:
+                entries.append((int(r["time"]), float(r["fundingRate"]), None))
             interval_h = interval_hours_from_timestamps([e[0] for e in entries])
-        elif exchange == "bybit":
-            for r in payload.get("result", {}).get("list", []):
+        elif exchange == "gateio":
+            for r in payload:
+                entries.append((int(r["t"]) * 1000, float(r["r"]), None))
+            interval_h = interval_hours_from_timestamps([e[0] for e in entries])
+        elif exchange == "bitget":
+            for r in payload.get("data", {}).get("resultList", []):
                 entries.append((int(r["fundingRateTimestamp"]), float(r["fundingRate"]), None))
             interval_h = interval_hours_from_timestamps([e[0] for e in entries])
         elif exchange == "okx":
@@ -132,11 +143,27 @@ def venue_block(exchange, sym, payload):
 
 
 def fetch_venue(exchange, sym):
+    # Hyperliquid is a POST endpoint (no URL path).
+    if exchange == "hyperliquid":
+        try:
+            start_ms = int((time.time() - 30 * 86400) * 1000)
+            payload = http_post_json(
+                "https://api.hyperliquid.xyz/info",
+                {"type": "fundingHistory", "coin": sym, "startTime": start_ms},
+            )
+            return venue_block(exchange, sym, payload)
+        except urllib.error.HTTPError as e:
+            print(f"  ! {exchange}/{sym} HTTP {e.code}", file=sys.stderr)
+            return None
+        except (urllib.error.URLError, json.JSONDecodeError, OSError, ValueError) as e:
+            print(f"  ! {exchange}/{sym} failed: {e}", file=sys.stderr)
+            return None
+
     urls = {
-        "binance": f"https://fapi.binance.com/fapi/v1/fundingRate?symbol={sym}USDT&limit={LIMIT}",
-        "bybit": f"{PROXY_URL}/api.bybit.com/v5/market/funding/history?category=linear&symbol={sym}USDT&limit={LIMIT}",
         "okx": f"https://www.okx.com/api/v5/public/funding-rate-history?instId={sym}-USDT-SWAP&limit={LIMIT}",
         "mexc": f"https://contract.mexc.com/api/v1/contract/funding_rate/history?symbol={sym}_USDT&page_num=1&page_size={LIMIT}",
+        "gateio": f"https://api.gateio.ws/api/v4/futures/usdt/funding_rate?contract={sym}_USDT&limit={LIMIT}",
+        "bitget": f"https://api.bitget.com/api/v3/market/history-fund-rate?symbol={sym}USDT&category=USDT-FUTURES&pageSize={LIMIT}",
     }
     try:
         payload = http_get_json(urls[exchange])

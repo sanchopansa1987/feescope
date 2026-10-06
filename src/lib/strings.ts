@@ -39,7 +39,7 @@ const en = {
     "Live crypto funding rates across exchanges. See what funding actually costs you before you pay it.",
   fundingRatesSeoTitle: "Funding rate comparison — FeeScope",
   fundingRatesDescription:
-    "Compare perpetual funding rates across Binance, Bybit, OKX, and MEXC. The full table.",
+    "Compare perpetual funding rates across OKX, MEXC, Hyperliquid, Gate.io, and Bitget. The full table.",
   feesSeoTitle: "Crypto exchange fees — FeeScope",
   feesDescription:
     "Crypto exchange fee comparison — spot and perpetual taker fees across major venues.",

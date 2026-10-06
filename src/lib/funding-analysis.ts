@@ -75,17 +75,19 @@ export function roundTripFeeUsd(sizeUsd: number, takerBps: number): number {
 }
 
 const VENUE_LABEL: Record<string, string> = {
-  binance: "Binance",
-  bybit: "Bybit",
   okx: "OKX",
   mexc: "MEXC",
+  hyperliquid: "Hyperliquid",
+  gateio: "Gate.io",
+  bitget: "Bitget",
 };
 
 const VENUE_TAKER_BPS: Record<string, number> = {
-  binance: 4.0,
-  bybit: 5.5,
   okx: 5.0,
   mexc: 6.0,
+  hyperliquid: 3.5,
+  gateio: 5.0,
+  bitget: 6.0,
 };
 
 export function venueTakerBps(key: string): number {
