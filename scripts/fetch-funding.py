@@ -28,6 +28,11 @@ HOLDING_DAYS = 1
 STABILITY_N = 30
 LIMIT = 100
 
+# Cloudflare Worker proxy for exchanges that geo-block datacenter IPs
+# (GitHub Actions runners). Only Bybit is routed through it — Binance also
+# blocks Cloudflare edge IPs, so Binance stays direct.
+PROXY_URL = "https://feescope-fetch-proxy.sanchopansa1987.workers.dev"
+
 # VIP-0 futures taker fee per side, in basis points. Single source of truth is
 # src/data/fees.ts — keep these in sync.
 TAKER_FEE_BPS = {
@@ -129,7 +134,7 @@ def venue_block(exchange, sym, payload):
 def fetch_venue(exchange, sym):
     urls = {
         "binance": f"https://fapi.binance.com/fapi/v1/fundingRate?symbol={sym}USDT&limit={LIMIT}",
-        "bybit": f"https://api.bybit.com/v5/market/funding/history?category=linear&symbol={sym}USDT&limit={LIMIT}",
+        "bybit": f"{PROXY_URL}/api.bybit.com/v5/market/funding/history?category=linear&symbol={sym}USDT&limit={LIMIT}",
         "okx": f"https://www.okx.com/api/v5/public/funding-rate-history?instId={sym}-USDT-SWAP&limit={LIMIT}",
         "mexc": f"https://contract.mexc.com/api/v1/contract/funding_rate/history?symbol={sym}_USDT&page_num=1&page_size={LIMIT}",
     }
