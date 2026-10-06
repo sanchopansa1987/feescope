@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T10:11:37Z",
+  "generated_at": "2026-10-06T15:02:35Z",
   "symbols": {
     "ETH": {
       "venues": {
@@ -37,7 +37,7 @@
           "apr": 11.5719,
           "net_apr_short": -13.9781,
           "net_apr_long": -37.1219,
-          "settled_at": "2026-09-27T06:00:00Z",
+          "settled_at": "2026-09-27T11:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 30,
@@ -138,7 +138,7 @@
           "apr": 11.5719,
           "net_apr_short": -13.9781,
           "net_apr_long": -37.1219,
-          "settled_at": "2026-09-27T06:00:00Z",
+          "settled_at": "2026-09-27T11:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 30,
@@ -239,7 +239,7 @@
           "apr": 11.5719,
           "net_apr_short": -13.9781,
           "net_apr_long": -37.1219,
-          "settled_at": "2026-09-27T06:00:00Z",
+          "settled_at": "2026-09-27T11:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 30,
@@ -340,7 +340,7 @@
           "apr": 11.5719,
           "net_apr_short": -13.9781,
           "net_apr_long": -37.1219,
-          "settled_at": "2026-09-27T06:00:00Z",
+          "settled_at": "2026-09-27T11:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 30,
@@ -436,17 +436,17 @@
           }
         },
         "hyperliquid": {
-          "rate": 1.25e-05,
+          "rate": -6.2978e-06,
           "interval_h": 1.0,
-          "apr": 11.5719,
-          "net_apr_short": -13.9781,
-          "net_apr_long": -37.1219,
-          "settled_at": "2026-09-27T06:00:00Z",
+          "apr": -5.3675,
+          "net_apr_short": -30.9175,
+          "net_apr_long": -20.1825,
+          "settled_at": "2026-09-27T11:00:00Z",
           "mark_price": null,
           "stability": {
-            "positive_days": 30,
+            "positive_days": 28,
             "total_days": 30,
-            "score": 1.0
+            "score": 0.0667
           }
         },
         "gateio": {
@@ -490,9 +490,9 @@
           "score": 0.8667
         },
         "hyperliquid": {
-          "positive_days": 30,
+          "positive_days": 28,
           "total_days": 30,
-          "score": 1.0
+          "score": 0.0667
         },
         "gateio": {
           "positive_days": 30,
