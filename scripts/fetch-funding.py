@@ -141,8 +141,15 @@ def fetch_venue(exchange, sym):
     try:
         payload = http_get_json(urls[exchange])
         return venue_block(exchange, sym, payload)
-    except (urllib.error.URLError, urllib.error.HTTPError, json.JSONDecodeError,
-            OSError, ValueError) as e:
+    except urllib.error.HTTPError as e:
+        body = ""
+        try:
+            body = e.read().decode("utf-8", "replace")[:200]
+        except Exception:
+            pass
+        print(f"  ! {exchange}/{sym} HTTP {e.code}: {body}", file=sys.stderr)
+        return None
+    except (urllib.error.URLError, json.JSONDecodeError, OSError, ValueError) as e:
         print(f"  ! {exchange}/{sym} failed: {e}", file=sys.stderr)
         return None
 
