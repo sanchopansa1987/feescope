@@ -6,3 +6,8 @@ pages_build_output_dir = "dist"
 [[analytics_engine_datasets]]
 binding = "ANALYTICS"
 dataset = "feescope_events"
+
+# KV namespace for the footer email signup (Phase 2).
+[[kv_namespaces]]
+binding = "SIGNUPS"
+id = "a5989aab7dd24731b071e7cc8c2c2a80"

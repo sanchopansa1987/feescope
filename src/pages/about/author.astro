@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import { author } from "../../config/author";
+import { tEn } from "../../lib/strings";
 
 const personSchema = {
   "@context": "https://schema.org",
@@ -25,82 +26,67 @@ const personSchema = {
   <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 
   <article class="mx-auto max-w-[700px] space-y-8 text-neutral-200">
+    <nav class="text-sm text-neutral-400" aria-label="Breadcrumb">
+      <a href="/" class="no-underline hover:text-neutral-100">{tEn("siteName")}</a>
+      <span class="mx-2">/</span>
+      <a href="/about" class="no-underline hover:text-neutral-100">{tEn("navAbout")}</a>
+      <span class="mx-2">/</span>
+      <span class="text-neutral-200">{author.name}</span>
+    </nav>
+
     <h1 class="text-3xl font-bold text-neutral-50">{author.name}</h1>
     <p class="text-neutral-400">{author.role}</p>
 
+    <!-- Photo placeholder — replace with <img src="/images/author.jpg" alt={author.name} /> once the portrait is supplied -->
+    <div class="flex h-24 w-24 items-center justify-center rounded-full border border-neutral-700 bg-neutral-800">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" class="text-neutral-500" aria-hidden="true">
+        <circle cx="12" cy="8" r="4" />
+        <path d="M4 20c0-4 4-6 8-6s8 2 8 6v1H4z" />
+      </svg>
+    </div>
+
     <section class="space-y-4 text-neutral-300">
-      <p>
-        Sanjar Talaibekovic is an operations and compliance professional who has been
-        working in crypto since the 2017 cycle. He was an operational and compliance
-        manager at ACX (Australian Crypto Exchange) through the 2018 crypto winter,
-        then moved into compliance at Huobi Australia as a Compliance Officer.
-      </p>
-      <p>
-        At ACX, he was part of the team behind one of the first arbitrage crypto
-        trading bots — an automated system that bought and sold across exchanges to
-        capture price differences. That experience shaped everything since: he saw
-        first-hand how much of crypto is noise, how hard it is to find the specific
-        information that matters, and what happens when traders don't understand the
-        rules of the market they're trading. People lost money they couldn't afford
-        to lose.
-      </p>
-      <p>FeeScope is his answer to that problem.</p>
+      <p>{tEn("authorBio1")}</p>
+      <p>{tEn("authorBio2")}</p>
+      <p>{tEn("authorBio3")}</p>
     </section>
 
     <section class="space-y-3">
-      <h2 class="text-xl font-semibold text-neutral-50">Why FeeScope exists</h2>
-      <p class="text-neutral-300">
-        The first time you look at a funding rate, you think it's free money. It
-        isn't. That's the thing almost no one explains when you're new — funding is a
-        real cost that compounds, and it's different on every exchange. For an
-        experienced trader, it's a line item. For a new one, it's invisible until
-        it's already been paid.
-      </p>
-      <p class="text-neutral-300">
-        FeeScope exists to make that cost visible before it's paid, in plain
-        language, for both kinds of traders.
-      </p>
+      <h2 class="text-xl font-semibold text-neutral-50">{tEn("authorWhyHeading")}</h2>
+      <p class="text-neutral-300">{tEn("authorWhy1")}</p>
+      <p class="text-neutral-300">{tEn("authorWhy2")}</p>
     </section>
 
     <section class="space-y-3">
-      <h2 class="text-xl font-semibold text-neutral-50">What FeeScope is / isn't</h2>
-      <p class="font-medium text-neutral-100">IS:</p>
+      <h2 class="text-xl font-semibold text-neutral-50">{tEn("authorIsIsntHeading")}</h2>
+      <p class="font-medium text-neutral-100">{tEn("authorIsLabel")}</p>
       <ul class="list-disc space-y-1 pl-6 text-neutral-300">
-        <li>A data tool that shows current funding rates across venues, side by side, with the actual cost of holding</li>
-        <li>Built on direct exchange APIs, refreshed every 8 hours, with per-venue rates cross-checked against the source</li>
-        <li>Free</li>
+        <li>{tEn("authorIs1")}</li>
+        <li>{tEn("authorIs3")}</li>
       </ul>
-      <p class="font-medium text-neutral-100">ISN'T:</p>
+      <p class="font-medium text-neutral-100">{tEn("authorIsntLabel")}</p>
       <ul class="list-disc space-y-1 pl-6 text-neutral-300">
-        <li>Financial advice</li>
-        <li>A signal service</li>
-        <li>A recommendation engine</li>
-        <li>A promise of returns</li>
+        <li>{tEn("authorIsnt1")}</li>
+        <li>{tEn("authorIsnt2")}</li>
+        <li>{tEn("authorIsnt3")}</li>
+        <li>{tEn("authorIsnt4")}</li>
       </ul>
     </section>
 
     <section class="space-y-3">
-      <h2 class="text-xl font-semibold text-neutral-50">On AI use</h2>
-      <p class="text-neutral-300">
-        Some code and copy on this site was developed with AI assistance. Every
-        funding rate is pulled directly from public exchange APIs and cross-checked
-        against the source. The methodology is documented in docs/FUNDING_PIPELINE.md.
-      </p>
+      <h2 class="text-xl font-semibold text-neutral-50">{tEn("authorAiHeading")}</h2>
+      <p class="text-neutral-300">{tEn("authorAiBody")}</p>
     </section>
 
     <section class="space-y-3">
-      <h2 class="text-xl font-semibold text-neutral-50">Affiliate disclosure</h2>
-      <p class="text-neutral-300">
-        This site may include affiliate links to exchanges in the future. If you sign
-        up through a link, we may earn a commission at no cost to you. This does not
-        affect which venues are shown or how they're ranked.
-      </p>
+      <h2 class="text-xl font-semibold text-neutral-50">{tEn("authorAffiliateHeading")}</h2>
+      <p class="text-neutral-300">{tEn("authorAffiliateBody")}</p>
     </section>
 
     <section class="space-y-3">
-      <h2 class="text-xl font-semibold text-neutral-50">Contact</h2>
+      <h2 class="text-xl font-semibold text-neutral-50">{tEn("authorContactHeading")}</h2>
       <p class="text-neutral-300">
-        Corrections, questions, or feedback: <a href={`mailto:${author.contact}`} class="text-neutral-100 underline">{author.contact}</a>
+        {tEn("authorContactBody")} <a href={`mailto:${author.contact}`} class="text-neutral-100 underline">{author.contact}</a>
       </p>
     </section>
   </article>

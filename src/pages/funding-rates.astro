@@ -1,10 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { fundingRows } from "../data/funding";
+import { fundingRows, generatedAtMs } from "../data/funding";
 import { author } from "../config/author";
 import { tEn } from "../lib/strings";
 
 const fmtDate = (ms: number) => new Date(ms).toISOString().slice(0, 10);
+const ratesAsOfMs = Math.max(...fundingRows.map((r) => r.lastUpdatedMs));
 
 const datasetSchema = {
   "@context": "https://schema.org",
@@ -25,6 +26,9 @@ const datasetSchema = {
   <script type="application/ld+json" set:html={JSON.stringify(datasetSchema)} />
   <h1 class="mb-1 text-3xl font-bold">{tEn("fundingRatesTitle")}</h1>
   <p class="max-w-xl text-neutral-400">{tEn("fundingRatesLede")}</p>
+  <p class="mt-2 text-sm text-neutral-500">
+    {tEn("fundingRatesAsOf")} {fmtDate(ratesAsOfMs)} ({tEn("fundingRatesFrozen")} {fmtDate(generatedAtMs)}). {tEn("fundingRatesNotLive")}
+  </p>
   <table class="data-table mt-5 w-full border-collapse" id="funding-table">
     <thead>
       <tr class="text-left text-sm text-neutral-400">

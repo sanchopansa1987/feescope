@@ -1,0 +1,31 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { tEn } from "../lib/strings";
+import { emailKey, tokenKey, type SignupEnv, type SignupRecord } from "../lib/signup";
+
+const token = Astro.url.searchParams.get("token") ?? "";
+const env = (Astro.locals as { runtime?: { env?: SignupEnv } }).runtime?.env ?? {};
+const kv = env.SIGNUPS;
+
+let done = false;
+if (kv && token) {
+  const email = await kv.get(tokenKey(token));
+  if (email) {
+    const raw = await kv.get(emailKey(email));
+    if (raw) {
+      const record = JSON.parse(raw) as SignupRecord;
+      record.unsubscribed = true;
+      await kv.put(emailKey(email), JSON.stringify(record));
+      done = true;
+    }
+  }
+}
+---
+
+<Layout title="Unsubscribe — FeeScope">
+  <article class="mx-auto max-w-[700px] space-y-4 text-neutral-200">
+    <h1 class="text-3xl font-bold text-neutral-50">{tEn("unsubscribeHeading")}</h1>
+    <p class="text-neutral-300">{done ? tEn("unsubscribeDone") : tEn("unsubscribeError")}</p>
+    <a href="/" class="text-neutral-100 underline">{tEn("backHome")}</a>
+  </article>
+</Layout>

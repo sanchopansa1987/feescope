@@ -12,7 +12,7 @@ const { title, description } = Astro.props;
 const locale = "en";
 
 const DEFAULT_DESCRIPTION =
-  "Compare live crypto perpetual funding rates across OKX, MEXC, Hyperliquid, Gate.io, and Bitget. See the real cost of holding, in plain language. Free.";
+  "Compare crypto perpetual funding rates across OKX, MEXC, Hyperliquid, Gate.io, and Bitget. See the real cost of holding, in plain language. Free.";
 const metaDescription = description ?? DEFAULT_DESCRIPTION;
 const canonicalUrl = new URL(
   Astro.url.pathname,
@@ -60,7 +60,64 @@ logPageview(Astro.locals.runtime?.env, {
       <slot />
     </main>
     <footer class="mx-auto max-w-4xl px-8 pb-12">
+      <section class="mb-8 rounded-lg border border-neutral-800 bg-neutral-900 p-6">
+        <h2 class="text-lg font-semibold text-neutral-50">{tEn("signupHeading")}</h2>
+        <p class="mt-1 text-sm text-neutral-400">{tEn("signupBody")}</p>
+        <form
+          id="signup-form"
+          class="mt-4 flex flex-col gap-2 sm:flex-row"
+          data-endpoint="/api/subscribe"
+          data-success={tEn("signupSuccess")}
+          data-error={tEn("signupError")}
+        >
+          <div class="hidden" aria-hidden="true">
+            <input type="text" name="honeypot" tabindex="-1" autocomplete="off" />
+          </div>
+          <input
+            type="email"
+            name="email"
+            required
+            autocomplete="email"
+            placeholder={tEn("signupPlaceholder")}
+            class="flex-1 rounded-md border border-neutral-700 bg-neutral-950 px-3 py-2 text-neutral-100 placeholder-neutral-500 focus:border-neutral-500 focus:outline-none"
+          />
+          <button
+            type="submit"
+            class="rounded-md bg-neutral-100 px-4 py-2 font-medium text-neutral-950 hover:bg-neutral-200"
+          >
+            {tEn("signupButton")}
+          </button>
+        </form>
+        <p id="signup-status" class="mt-2 text-sm text-neutral-400" role="status" aria-live="polite"></p>
+        <p class="mt-2 text-xs text-neutral-500">{tEn("signupDisclaimer")}</p>
+      </section>
       <p class="text-xs text-neutral-500">{tEn("disclosure")}</p>
     </footer>
+    <script>
+      const form = document.getElementById("signup-form");
+      const status = document.getElementById("signup-status");
+      form?.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        if (status) status.textContent = "";
+        const data = new FormData(form);
+        try {
+          const res = await fetch(form.dataset.endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email: data.get("email"),
+              honeypot: data.get("honeypot"),
+            }),
+          });
+          const json = await res.json().catch(() => ({ ok: false }));
+          if (status) {
+            status.textContent = json.ok ? form.dataset.success : form.dataset.error;
+          }
+          if (json.ok) form.reset();
+        } catch {
+          if (status) status.textContent = form.dataset.error;
+        }
+      });
+    </script>
   </body>
 </html>
