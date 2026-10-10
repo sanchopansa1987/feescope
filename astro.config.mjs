@@ -10,7 +10,7 @@ import tailwindcss from "@tailwindcss/vite";
 // `site` is the single source of truth for absolute URLs (sitemap + canonical).
 // Update it when a custom domain is registered.
 export default defineConfig({
-  site: "https://feescope.pages.dev",
+  site: "https://feescope.io",
   output: "server",
   adapter: cloudflare(),
   integrations: [
@@ -18,7 +18,7 @@ export default defineConfig({
       // Dynamic /funding/[symbol] routes are on-demand (no getStaticPaths), so
       // enumerate the tracked symbols explicitly for the sitemap.
       customPages: ["ETH", "BTC", "SOL", "XRP", "DOT"].map(
-        (sym) => `https://feescope.pages.dev/funding/${sym}`,
+        (sym) => `https://feescope.io/funding/${sym}`,
       ),
     }),
   ],

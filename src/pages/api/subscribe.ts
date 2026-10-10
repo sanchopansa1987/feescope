@@ -17,7 +17,7 @@ async function sendWelcomeEmail(
 ): Promise<void> {
   // No-op until RESEND_API_KEY + RESEND_FROM are set in Cloudflare Pages.
   if (!env.RESEND_API_KEY || !env.RESEND_FROM) return;
-  const unsubscribeUrl = `https://feescope.pages.dev/unsubscribe?token=${encodeURIComponent(unsubscribeToken)}`;
+  const unsubscribeUrl = `https://feescope.io/unsubscribe?token=${encodeURIComponent(unsubscribeToken)}`;
   await fetch(RESEND_API, {
     method: "POST",
     headers: {
