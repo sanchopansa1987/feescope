@@ -177,7 +177,7 @@ const datasetSchema = {
             return (
               <tr class={rowClass} data-venue={v.key}>
                 <td class="border-b border-neutral-800 px-3 py-2">
-                  <a href="#" class="text-neutral-100 no-underline" data-track={`funding-venue-${v.key}`}>{v.venue}</a>
+                  <a href={`/go/${v.key}`} rel="nofollow sponsored noopener" target="_blank" class="text-neutral-100 no-underline" data-track={`funding-venue-${v.key}`}>{v.venue}</a>
                 </td>
                 <td class="border-b border-neutral-800 px-3 py-2 text-neutral-100">{b ? fmtApr(b.apr) : "—"}</td>
                 <td class="border-b border-neutral-800 px-3 py-2 text-neutral-100" data-proj-cost={v.key}>—</td>

@@ -42,6 +42,7 @@ import { tEn } from "../lib/strings";
 <script define:vars={{ exchanges }}>
   interface ExchangeFees {
     name: string;
+    key: string;
     takerBps: number;
     makerBps: number;
   }
@@ -67,7 +68,7 @@ import { tEn } from "../lib/strings";
     tbody.innerHTML = rows
       .map(
         (r) => `<tr>
-          <td class="border-b border-neutral-800 px-3 py-2">${r.name}</td>
+          <td class="border-b border-neutral-800 px-3 py-2"><a href="/go/${r.key}" rel="nofollow sponsored noopener" target="_blank" class="text-neutral-100 no-underline">${r.name}</a></td>
           <td class="border-b border-neutral-800 px-3 py-2">${r.takerBps.toFixed(1)} bps</td>
           <td class="border-b border-neutral-800 px-3 py-2">${r.makerBps.toFixed(1)} bps</td>
           <td class="border-b border-neutral-800 px-3 py-2">${r.blendedBps.toFixed(2)} bps</td>
