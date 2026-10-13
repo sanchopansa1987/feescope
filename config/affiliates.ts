@@ -4,7 +4,7 @@ const AFFILIATE_URLS: Record<string, string> = {
   bybit: "#",
   okx: "#",
   binance: "#",
-  mexc: "#",
+  mexc: "https://www.mexc.com/register?inviteCode=mexc-4DpfZ",
 };
 
 export function getAffiliateUrl(exchange: string): string {

@@ -51,7 +51,7 @@ const en = {
   notFound: "That page doesn't exist.",
   backHome: "Back home",
   disclosure:
-    "Affiliate disclosure: this site may earn referral commissions from linked exchanges. No affiliate links are currently active.",
+    "Affiliate disclosure: this site may earn referral commissions from linked exchanges.",
   fpLong: "If you're LONG",
   fpShort: "If you're SHORT",
   fpPaying: "you're paying",
@@ -151,7 +151,7 @@ const en = {
     "Some code and copy on this site was developed with AI assistance. Every funding rate is pulled directly from public exchange APIs and cross-checked against the source. The methodology is documented in docs/FUNDING_PIPELINE.md.",
   authorAffiliateHeading: "Affiliate disclosure",
   authorAffiliateBody:
-    "This site may include affiliate links to exchanges in the future. If you sign up through a link, we may earn a commission at no cost to you. This does not affect which venues are shown or how they're ranked.",
+    "This site may include affiliate links to exchanges. If you sign up through a link, we may earn a commission at no cost to you. This does not affect which venues are shown or how they're ranked.",
   authorContactHeading: "Contact",
   authorContactBody: "Corrections, questions, or feedback:",
   // Footer email signup (Phase 2)
