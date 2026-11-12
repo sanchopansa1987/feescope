@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-11-11T22:39:20Z",
+  "generated_at": "2026-11-12T07:00:04Z",
   "symbols": {
     "ETH": {
       "venues": {
         "okx": {
-          "rate": 4.9650009401e-05,
+          "rate": 9.5417195015e-06,
           "interval_h": 8.0,
-          "apr": 5.587,
-          "net_apr_short": -30.913,
-          "net_apr_long": -42.087,
-          "settled_at": "2026-11-11T16:00:00Z",
+          "apr": 1.0503,
+          "net_apr_short": -35.4497,
+          "net_apr_long": -37.5503,
+          "settled_at": "2026-11-12T00:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 24,
@@ -18,12 +18,12 @@
           }
         },
         "mexc": {
-          "rate": 6.4e-05,
+          "rate": 5.8e-05,
           "interval_h": 8.0,
-          "apr": 7.2592,
-          "net_apr_short": -36.5408,
-          "net_apr_long": -51.0592,
-          "settled_at": "2026-11-11T16:00:00Z",
+          "apr": 6.5568,
+          "net_apr_short": -37.2432,
+          "net_apr_long": -50.3568,
+          "settled_at": "2026-11-12T00:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 24,
@@ -32,26 +32,26 @@
           }
         },
         "hyperliquid": {
-          "rate": 9.4397e-06,
+          "rate": 1.25e-05,
           "interval_h": 1.0,
-          "apr": 8.6207,
-          "net_apr_short": -16.9293,
-          "net_apr_long": -34.1707,
-          "settled_at": "2026-11-02T18:00:00Z",
+          "apr": 11.5719,
+          "net_apr_short": -13.9781,
+          "net_apr_long": -37.1219,
+          "settled_at": "2026-11-03T03:00:00Z",
           "mark_price": null,
           "stability": {
-            "positive_days": 30,
+            "positive_days": 29,
             "total_days": 30,
-            "score": 1.0
+            "score": 0.9667
           }
         },
         "gateio": {
-          "rate": 5.3e-05,
+          "rate": 1.6e-05,
           "interval_h": 8.0,
-          "apr": 5.975,
-          "net_apr_short": -30.525,
-          "net_apr_long": -42.475,
-          "settled_at": "2026-11-11T16:00:00Z",
+          "apr": 1.7674,
+          "net_apr_short": -34.7326,
+          "net_apr_long": -38.2674,
+          "settled_at": "2026-11-12T00:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 26,
@@ -60,12 +60,12 @@
           }
         },
         "bitget": {
-          "rate": 5.8e-05,
+          "rate": 1.5e-05,
           "interval_h": 8.0,
-          "apr": 6.5568,
-          "net_apr_short": -37.2432,
-          "net_apr_long": -50.3568,
-          "settled_at": "2026-11-11T16:00:00Z",
+          "apr": 1.6561,
+          "net_apr_short": -42.1439,
+          "net_apr_long": -45.4561,
+          "settled_at": "2026-11-12T00:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 17,
@@ -86,9 +86,9 @@
           "score": 0.8
         },
         "hyperliquid": {
-          "positive_days": 30,
+          "positive_days": 29,
           "total_days": 30,
-          "score": 1.0
+          "score": 0.9667
         },
         "gateio": {
           "positive_days": 26,
@@ -105,12 +105,12 @@
     "BTC": {
       "venues": {
         "okx": {
-          "rate": 4.63066109924e-05,
+          "rate": 6.10331387262e-05,
           "interval_h": 8.0,
-          "apr": 5.2012,
-          "net_apr_short": -31.2988,
-          "net_apr_long": -41.7012,
-          "settled_at": "2026-11-11T16:00:00Z",
+          "apr": 6.9113,
+          "net_apr_short": -29.5887,
+          "net_apr_long": -43.4113,
+          "settled_at": "2026-11-12T00:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 29,
@@ -119,12 +119,12 @@
           }
         },
         "mexc": {
-          "rate": 6.6e-05,
+          "rate": 3.5e-05,
           "interval_h": 8.0,
-          "apr": 7.4943,
-          "net_apr_short": -36.3057,
-          "net_apr_long": -51.2943,
-          "settled_at": "2026-11-11T16:00:00Z",
+          "apr": 3.9068,
+          "net_apr_short": -39.8932,
+          "net_apr_long": -47.7068,
+          "settled_at": "2026-11-12T00:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 30,
@@ -138,7 +138,7 @@
           "apr": 11.5719,
           "net_apr_short": -13.9781,
           "net_apr_long": -37.1219,
-          "settled_at": "2026-11-02T18:00:00Z",
+          "settled_at": "2026-11-03T03:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 30,
@@ -147,12 +147,12 @@
           }
         },
         "gateio": {
-          "rate": 6e-05,
+          "rate": 3.9e-05,
           "interval_h": 8.0,
-          "apr": 6.7904,
-          "net_apr_short": -29.7096,
-          "net_apr_long": -43.2904,
-          "settled_at": "2026-11-11T16:00:00Z",
+          "apr": 4.3629,
+          "net_apr_short": -32.1371,
+          "net_apr_long": -40.8629,
+          "settled_at": "2026-11-12T00:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 30,
@@ -161,12 +161,12 @@
           }
         },
         "bitget": {
-          "rate": 6.4e-05,
+          "rate": 2.9e-05,
           "interval_h": 8.0,
-          "apr": 7.2592,
-          "net_apr_short": -36.5408,
-          "net_apr_long": -51.0592,
-          "settled_at": "2026-11-11T16:00:00Z",
+          "apr": 3.2264,
+          "net_apr_short": -40.5736,
+          "net_apr_long": -47.0264,
+          "settled_at": "2026-11-12T00:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 20,
@@ -206,26 +206,26 @@
     "SOL": {
       "venues": {
         "okx": {
-          "rate": 4.30742455399e-05,
+          "rate": -8.6347935513e-06,
           "interval_h": 8.0,
-          "apr": 4.8295,
-          "net_apr_short": -31.6705,
-          "net_apr_long": -41.3295,
-          "settled_at": "2026-11-11T16:00:00Z",
+          "apr": -0.9411,
+          "net_apr_short": -37.4411,
+          "net_apr_long": -35.5589,
+          "settled_at": "2026-11-12T00:00:00Z",
           "mark_price": null,
           "stability": {
-            "positive_days": 26,
+            "positive_days": 25,
             "total_days": 30,
-            "score": 0.8667
+            "score": 0.1667
           }
         },
         "mexc": {
-          "rate": 8.9e-05,
+          "rate": 2.7e-05,
           "interval_h": 8.0,
-          "apr": 10.2357,
-          "net_apr_short": -33.5643,
-          "net_apr_long": -54.0357,
-          "settled_at": "2026-11-11T16:00:00Z",
+          "apr": 3.0006,
+          "net_apr_short": -40.7994,
+          "net_apr_long": -46.8006,
+          "settled_at": "2026-11-12T00:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 28,
@@ -239,7 +239,7 @@
           "apr": 11.5719,
           "net_apr_short": -13.9781,
           "net_apr_long": -37.1219,
-          "settled_at": "2026-11-02T18:00:00Z",
+          "settled_at": "2026-11-03T03:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 30,
@@ -248,12 +248,12 @@
           }
         },
         "gateio": {
-          "rate": 8.1e-05,
+          "rate": 2.7e-05,
           "interval_h": 8.0,
-          "apr": 9.2743,
-          "net_apr_short": -27.2257,
-          "net_apr_long": -45.7743,
-          "settled_at": "2026-11-11T16:00:00Z",
+          "apr": 3.0006,
+          "net_apr_short": -33.4994,
+          "net_apr_long": -39.5006,
+          "settled_at": "2026-11-12T00:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 29,
@@ -262,25 +262,25 @@
           }
         },
         "bitget": {
-          "rate": -2e-05,
+          "rate": -5.1e-05,
           "interval_h": 8.0,
-          "apr": -2.1662,
-          "net_apr_short": -45.9662,
-          "net_apr_long": -41.6338,
-          "settled_at": "2026-11-11T16:00:00Z",
+          "apr": -5.4316,
+          "net_apr_short": -49.2316,
+          "net_apr_long": -38.3684,
+          "settled_at": "2026-11-12T00:00:00Z",
           "mark_price": null,
           "stability": {
-            "positive_days": 15,
+            "positive_days": 14,
             "total_days": 20,
-            "score": 0.25
+            "score": 0.3
           }
         }
       },
       "stability": {
         "okx": {
-          "positive_days": 26,
+          "positive_days": 25,
           "total_days": 30,
-          "score": 0.8667
+          "score": 0.1667
         },
         "mexc": {
           "positive_days": 28,
@@ -298,21 +298,21 @@
           "score": 0.9667
         },
         "bitget": {
-          "positive_days": 15,
+          "positive_days": 14,
           "total_days": 20,
-          "score": 0.25
+          "score": 0.3
         }
       }
     },
     "XRP": {
       "venues": {
         "okx": {
-          "rate": 0.0001,
+          "rate": 7.29674316034e-05,
           "interval_h": 8.0,
-          "apr": 11.5714,
-          "net_apr_short": -24.9286,
-          "net_apr_long": -48.0714,
-          "settled_at": "2026-11-11T16:00:00Z",
+          "apr": 8.3175,
+          "net_apr_short": -28.1825,
+          "net_apr_long": -44.8175,
+          "settled_at": "2026-11-12T00:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 29,
@@ -321,12 +321,12 @@
           }
         },
         "mexc": {
-          "rate": 0.0001,
+          "rate": 4.5e-05,
           "interval_h": 8.0,
-          "apr": 11.5714,
-          "net_apr_short": -32.2286,
-          "net_apr_long": -55.3714,
-          "settled_at": "2026-11-11T16:00:00Z",
+          "apr": 5.0508,
+          "net_apr_short": -38.7492,
+          "net_apr_long": -48.8508,
+          "settled_at": "2026-11-12T00:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 30,
@@ -340,7 +340,7 @@
           "apr": 11.5719,
           "net_apr_short": -13.9781,
           "net_apr_long": -37.1219,
-          "settled_at": "2026-11-02T18:00:00Z",
+          "settled_at": "2026-11-03T03:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 30,
@@ -349,12 +349,12 @@
           }
         },
         "gateio": {
-          "rate": 8.7e-05,
+          "rate": 6.9e-05,
           "interval_h": 8.0,
-          "apr": 9.9946,
-          "net_apr_short": -26.5054,
-          "net_apr_long": -46.4946,
-          "settled_at": "2026-11-11T16:00:00Z",
+          "apr": 7.848,
+          "net_apr_short": -28.652,
+          "net_apr_long": -44.348,
+          "settled_at": "2026-11-12T00:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 30,
@@ -363,12 +363,12 @@
           }
         },
         "bitget": {
-          "rate": 2.9e-05,
+          "rate": 5.4e-05,
           "interval_h": 8.0,
-          "apr": 3.2264,
-          "net_apr_short": -40.5736,
-          "net_apr_long": -47.0264,
-          "settled_at": "2026-11-11T16:00:00Z",
+          "apr": 6.0911,
+          "net_apr_short": -37.7089,
+          "net_apr_long": -49.8911,
+          "settled_at": "2026-11-12T00:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 13,
@@ -408,54 +408,54 @@
     "DOT": {
       "venues": {
         "okx": {
-          "rate": 6.86375786983e-05,
+          "rate": -0.0001126114216766,
           "interval_h": 8.0,
-          "apr": 7.8052,
-          "net_apr_short": -28.6948,
-          "net_apr_long": -44.3052,
-          "settled_at": "2026-11-11T16:00:00Z",
+          "apr": -11.6016,
+          "net_apr_short": -48.1016,
+          "net_apr_long": -24.8984,
+          "settled_at": "2026-11-12T00:00:00Z",
           "mark_price": null,
           "stability": {
-            "positive_days": 9,
+            "positive_days": 8,
             "total_days": 30,
-            "score": 0.3
+            "score": 0.7333
           }
         },
         "mexc": {
-          "rate": -3.9e-05,
+          "rate": 0.0001,
           "interval_h": 8.0,
-          "apr": -4.1807,
-          "net_apr_short": -47.9807,
-          "net_apr_long": -39.6193,
-          "settled_at": "2026-11-11T16:00:00Z",
+          "apr": 11.5714,
+          "net_apr_short": -32.2286,
+          "net_apr_long": -55.3714,
+          "settled_at": "2026-11-12T00:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 20,
             "total_days": 30,
-            "score": 0.3333
+            "score": 0.6667
           }
         },
         "hyperliquid": {
-          "rate": -1.06474e-05,
+          "rate": 1.25e-05,
           "interval_h": 1.0,
-          "apr": -8.9054,
-          "net_apr_short": -34.4554,
-          "net_apr_long": -16.6446,
-          "settled_at": "2026-11-02T18:00:00Z",
+          "apr": 11.5719,
+          "net_apr_short": -13.9781,
+          "net_apr_long": -37.1219,
+          "settled_at": "2026-11-03T03:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 29,
             "total_days": 30,
-            "score": 0.0333
+            "score": 0.9667
           }
         },
         "gateio": {
-          "rate": 0.0001,
+          "rate": 1.6e-05,
           "interval_h": 8.0,
-          "apr": 11.5714,
-          "net_apr_short": -24.9286,
-          "net_apr_long": -48.0714,
-          "settled_at": "2026-11-11T16:00:00Z",
+          "apr": 1.7674,
+          "net_apr_short": -34.7326,
+          "net_apr_long": -38.2674,
+          "settled_at": "2026-11-12T00:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 24,
@@ -464,12 +464,12 @@
           }
         },
         "bitget": {
-          "rate": 0.0001,
+          "rate": 3.8e-05,
           "interval_h": 8.0,
-          "apr": 11.5714,
-          "net_apr_short": -32.2286,
-          "net_apr_long": -55.3714,
-          "settled_at": "2026-11-11T16:00:00Z",
+          "apr": 4.2487,
+          "net_apr_short": -39.5513,
+          "net_apr_long": -48.0487,
+          "settled_at": "2026-11-12T00:00:00Z",
           "mark_price": null,
           "stability": {
             "positive_days": 13,
@@ -480,19 +480,19 @@
       },
       "stability": {
         "okx": {
-          "positive_days": 9,
+          "positive_days": 8,
           "total_days": 30,
-          "score": 0.3
+          "score": 0.7333
         },
         "mexc": {
           "positive_days": 20,
           "total_days": 30,
-          "score": 0.3333
+          "score": 0.6667
         },
         "hyperliquid": {
           "positive_days": 29,
           "total_days": 30,
-          "score": 0.0333
+          "score": 0.9667
         },
         "gateio": {
           "positive_days": 24,
